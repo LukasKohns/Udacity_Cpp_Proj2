@@ -126,7 +126,7 @@ long LinuxParser::IdleJiffies() { return 0; }
 // TODO: Read and return CPU utilization
 vector<string> LinuxParser::CpuUtilization() { return {}; }
 
-//Added manually: CPU utilization of process ID bla
+//Added manually: CPU utilization of process ID
 /*
 float LinuxParser::CpuUtilizationProc(int pid) { 
   
