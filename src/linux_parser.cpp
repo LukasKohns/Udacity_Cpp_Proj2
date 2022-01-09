@@ -126,7 +126,7 @@ long LinuxParser::IdleJiffies() { return 0; }
 // TODO: Read and return CPU utilization
 vector<string> LinuxParser::CpuUtilization() { return {}; }
 
-//Added manually: CPU utilization of process ID
+//Added manually: CPU utilization of process ID bla
 /*
 float LinuxParser::CpuUtilizationProc(int pid) { 
   
@@ -261,7 +261,6 @@ string LinuxParser::Uid(int pid) {
 // REMOVE: [[maybe_unused]] once you define the function
 string LinuxParser::User(int pid) { 
   string uid = Uid(pid);
-  string username;
   string line, key, value;
   
   std::ifstream filestream(kPasswordPath);
@@ -278,8 +277,6 @@ string LinuxParser::User(int pid) {
     }
   }
   return value;
-
-  return username; 
 }
 
 // TODO: Read and return the uptime of a process
