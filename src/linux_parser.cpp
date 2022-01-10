@@ -155,6 +155,7 @@ float LinuxParser::CpuUtilization(int pid) {
     }
   //Problem is that sys uptime is in secs
   uptime = LinuxParser::UpTime(pid);
+  // I used the given Stackoverflow-Link for this calculation
   // total = utime + stime
   long total_time = utime + stime;
   //total with wait = total + cu +cs
@@ -166,32 +167,6 @@ float LinuxParser::CpuUtilization(int pid) {
   return cpu_util;
 }      
    
-
-/*
-float LinuxParser::CpuUtilizationProc(int pid) { 
-  
-  string pidpath = kProcDirectory + to_string(pid) + "/status";
-
-  string line;
-  string key;
-  string value;
-  std::ifstream filestream(pidpath);
-  if (filestream.is_open()){
-    while (std::getline(filestream, line)) {
-      std::istringstream linestream(line);
-      while (linestream >> key >> value){
-        if (key == "Uid:"){
-          return value;
-        }
-      }
-    }
-  }
-
-  return value; 
-  
-}
-*/
-// TODO: Read and return the total number of processes
 int LinuxParser::TotalProcesses() { 
   string line;
   string key;
