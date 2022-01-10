@@ -5,7 +5,7 @@
 using std::string;
 using std::to_string;
 
-// TODO: Complete this helper function
+// Done: Complete this helper function
 // INPUT: Long int measuring seconds
 // OUTPUT: HH:MM:SS
 // REMOVE: [[maybe_unused]] once you define the function
@@ -25,7 +25,7 @@ string Format::ElapsedTime(long seconds) {
     int min = tot_mins % 60;
     int sec = seconds % 60;
 
-    string Time = Format::ZeroHelper(hours) + " : " + Format::ZeroHelper(min) + " : " + Format::ZeroHelper(sec) ;
+    string Time = Format::ZeroHelper(hours) + ":" + Format::ZeroHelper(min) + ":" + Format::ZeroHelper(sec) + " ";
 
 
     return Time; 

@@ -18,7 +18,7 @@ class Process {
   bool operator<(Process const& a) const;  // TODO: See src/process.cpp
   static bool CompareProcesses (Process a, Process b);
 
-  // TODO: Declare any necessary private members
+  // Done: Declare any necessary private members
  private:
   int pid_;
   float cpu_util_;

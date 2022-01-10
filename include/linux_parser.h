@@ -19,7 +19,7 @@ const std::string kOSPath{"/etc/os-release"};
 const std::string kPasswordPath{"/etc/passwd"};
 
 // Keys
-const std::string kVmKey{"VmSize:"};
+const std::string kVmKey{"VmSize:"}; //I do not trust VmRSS as the manpage states that it is inaccurate
 const std::string kUidKey{"Uid:"};
 const std::string kProRunKey{"procs_running"};
 const std::string kProcKey{"processes"};
@@ -49,11 +49,6 @@ enum CPUStates {
   kGuest_,
   kGuestNice_
 };
-std::vector<std::string> CpuUtilization();
-long Jiffies();
-long ActiveJiffies();
-long ActiveJiffies(int pid);
-long IdleJiffies();
 
 // Processes
 std::string Command(int pid);

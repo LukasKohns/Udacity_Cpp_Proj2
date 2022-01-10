@@ -4,7 +4,7 @@
 #include "linux_parser.h"
 using std::string;
 
-// TODO: Return the aggregate CPU utilization
+// Done: Return the aggregate CPU utilization
 float Processor::Utilization() { 
   string trash, user_str, nice_str, system_str, idle_str, iowait_str, irq_str, softirq_str, steal_str, guest_str, guestnice_str;
   string line;
@@ -14,6 +14,7 @@ float Processor::Utilization() {
     std::istringstream linestream(line);
     linestream >> trash >> user_str >> nice_str >> system_str >> idle_str >> iowait_str >> irq_str >> softirq_str >> steal_str >> guest_str >> guestnice_str;
   }
+  stream.close();
   float work = std::stof(user_str) + std::stof(nice_str) + std::stof(system_str) + std::stof(irq_str) + std::stof(softirq_str) + std::stof(steal_str);
   float idle = std::stof(idle_str) + std::stof(iowait_str);
   float total = work + idle;
