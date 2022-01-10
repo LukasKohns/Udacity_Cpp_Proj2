@@ -12,13 +12,15 @@ using std::to_string;
 using std::vector;
 
 //Constructor:
-Process::Process(int pid) : pid_(pid) {}
+Process::Process(int pid) : pid_(pid) {
+    this->cpu_util_ = LinuxParser::CpuUtilization(pid);
+}
 
 // TODO: Return this process's ID
 int Process::Pid() { return pid_; }
 
 // TODO: Return this process's CPU utilization
-float Process::CpuUtilization() { return 0; }
+float Process::CpuUtilization() { return LinuxParser::CpuUtilization(Pid()); }
 
 // TODO: Return the command that generated this process
 string Process::Command() { return LinuxParser::Command(Pid()); }
@@ -35,5 +37,9 @@ long int Process::UpTime() { return LinuxParser::UpTime(Pid()); }
 // TODO: Overload the "less than" comparison operator for Process objects
 // REMOVE: [[maybe_unused]] once you define the function
 bool Process::operator<(Process const& a) const { 
-    return 0;
+    return this->cpu_util_> a.cpu_util_;
 }
+// helper function for sorting processes. see process.cpp for definition of overloaded operator<
+bool Process::CompareProcesses (Process a, Process b) {
+    return b < a;    
+};

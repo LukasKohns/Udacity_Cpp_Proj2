@@ -29,7 +29,7 @@ vector<Process>& System::Processes() {
     Process process(pid);
     processes_.push_back(process);
   }
-  std::sort(processes_.rbegin(),processes_.rend());
+  std::sort(processes_.rbegin(),processes_.rend(), Process::CompareProcesses);
   return processes_;
 }
 

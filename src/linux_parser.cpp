@@ -3,6 +3,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <math.h>
 
 #include "linux_parser.h"
 
@@ -127,6 +128,45 @@ long LinuxParser::IdleJiffies() { return 0; }
 vector<string> LinuxParser::CpuUtilization() { return {}; }
 
 //Added manually: CPU utilization of process ID
+float LinuxParser::CpuUtilization(int pid) {        
+  string value, line;
+  long int utime, stime, cutime, cstime, uptime; //starttime,
+  int pos = 0;
+  int utime_pos = 13; 
+  int stime_pos = 14; 
+  int cutime_pos =15;
+  int cstime_pos = 16;
+  //int starttime_pos = 21;
+  float cpu_util = 0;
+  
+  std::ifstream filestream(kProcDirectory + std::to_string(pid) + kStatFilename);
+  if (filestream.is_open()) {
+    while (std::getline(filestream, line)) {
+      std::istringstream linestream(line);
+      while (linestream >> value && pos < 22) {
+        if (pos == utime_pos) {utime = (std::stol(value));}
+        if (pos == stime_pos) {stime = (std::stol(value));}
+        if (pos == cutime_pos) {cutime = (std::stol(value));}
+        if (pos == cstime_pos) {cstime = (std::stol(value));}
+        //if (pos == starttime_pos) {starttime = (std::stol(value));}
+        pos++;
+      }
+      break;      
+    }
+  //Problem is that sys uptime is in secs
+  uptime = LinuxParser::UpTime(pid);
+  // total = utime + stime
+  long total_time = utime + stime;
+  //total with wait = total + cu +cs
+  long total_time_with_wait = total_time + cutime + cstime; 
+  long total_tww_secs = total_time_with_wait / sysconf(_SC_CLK_TCK);
+  //Utilization = total with wait / uptime
+  cpu_util =  static_cast<float>(total_tww_secs) / static_cast<float>(uptime);
+  }  
+  return cpu_util;
+}      
+   
+
 /*
 float LinuxParser::CpuUtilizationProc(int pid) { 
   
